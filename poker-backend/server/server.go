@@ -26,11 +26,19 @@ func (*server) Poker(ctx context.Context, req *pokerpb.PokerRequest) (*pokerpb.P
 
 func main() {
 	fmt.Println("Hello World")
-	lis, err := net.Listen("tcp", "127.0.0.1:50051")
+
+	// creds, err := credentials.NewServerTLSFromFile("../certs/server-cert.pem", "../certs/server-key.pem")
+	// if err != nil {
+	// 	log.Fatalf("Failed to setup tls: %v", err)
+	// }
+
+	lis, err := net.Listen("tcp", "0.0.0.0:9090")
 
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	// s := grpc.NewServer(grpc.Creds(creds))
 	s := grpc.NewServer()
 
 	pokerpb.RegisterPokerServiceServer(s, &server{})

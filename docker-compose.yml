@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  envoy:
+    build: .
+    networks:
+      - backend
+    ports:
+      - "8081:8081"
+  poker:
+    build:
+      context: .
+      dockerfile: ./poker-backend/dockerfile
+    networks:
+      - backend
+    ports:
+      - "9090:9090"
+
+networks:
+  backend:

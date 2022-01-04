@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1
+
+FROM golang:1.16-alpine
+
+WORKDIR /poker
+
+COPY ./go.mod .
+COPY ./go.sum .
+
+
+
+
+RUN go mod download
+
+COPY ./poker-backend/ ./poker-backend/
+RUN go build ./poker-backend/server/ 
+
+EXPOSE 50051
+
+CMD [ "./server" ]
